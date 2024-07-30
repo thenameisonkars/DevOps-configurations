@@ -1,0 +1,75 @@
+# Use an official base image
+FROM <base-image>
+
+# Set environment variables (optional)
+ENV <key>=<value>
+
+# Install dependencies
+RUN <command>
+
+# Set the working directory
+WORKDIR /app
+
+# Copy files from the host to the container
+COPY <source> <destination>
+
+# Expose a port (optional)
+EXPOSE <port>
+
+# Specify the command to run when the container starts
+CMD ["<command>", "<arg1>", "<arg2>"]
+
+
+
+
+#for python application
+# Use the official Python image from the Docker Hub
+FROM python:3.9-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Install the dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code into the container
+COPY . .
+
+# Expose port 5000 (if your application runs on this port)
+EXPOSE 5000
+
+# Define the command to run your application
+CMD ["python", "app.py"]
+
+
+
+#dockerfile for python web application
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code into the container
+COPY . .
+
+# Set environment variables for Flask
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=80
+
+# Expose port 80 for the Flask app
+EXPOSE 80
+
+# Define the command to run the application
+CMD ["flask", "run"]
+
