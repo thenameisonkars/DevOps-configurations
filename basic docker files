@@ -81,7 +81,7 @@ EXPOSE 80
 
 
 
-#for node application
+#for node application example.json
 # Use the official Node.js image from the Docker Hub
 FROM node:16
 
